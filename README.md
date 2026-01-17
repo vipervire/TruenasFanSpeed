@@ -42,7 +42,7 @@ TrueNAS Scale is based on an immutable root filesystem. Changes to most system d
    - Set:
      - Description: `Fan Control`
      - Type: `Script`
-     - Script: `/mnt/your-pool/scripts/supermicro_fan_control.sh --daemon &`
+     - Script: `/usr/bin/bash /mnt/your-pool/scripts/supermicro_fan_control.sh --daemon &`
      - When: `Post Init`
 
 ### Option 2: Cron Job with Frequent Polling
@@ -61,7 +61,7 @@ If you prefer not to run a daemon, use cron to run the script periodically:
    - Click **Add**
    - Set:
      - Description: `Fan Control`
-     - Command: `/mnt/your-pool/scripts/supermicro_fan_control.sh`
+     - Command: `/usr/bin/bash /mnt/your-pool/scripts/supermicro_fan_control.sh`
      - Run As User: `root`
      - Schedule: Every minute (`*/1` in the minute field)
 
@@ -170,6 +170,7 @@ sudo ./supermicro_fan_control.sh --status
 - X10SLM-F
 - X10SLL-F
 - X10DRL-i
+- X10SRi-F
 
 Other X10 boards should work but may need sensor name adjustments.
 
