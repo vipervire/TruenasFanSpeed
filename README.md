@@ -42,7 +42,7 @@ TrueNAS Scale is based on an immutable root filesystem. Changes to most system d
    - Set:
      - Description: `Fan Control`
      - Type: `Command`
-     - Script: `/usr/bin/bash /mnt/your-pool/scripts/supermicro_fan_control.sh --daemon &`
+     - Script: `setsid /usr/bin/bash /mnt/yourpool/scripts/supermicro_fan_control.sh --daemon >/dev/null 2>&1`
      - When: `Post Init`
 
 ### Option 2: Cron Job with Frequent Polling
