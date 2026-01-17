@@ -21,6 +21,7 @@ POLL_INTERVAL=30
 
 LOG_FILE="/var/log/fan_control.log"
 LOG_ENABLED=true
+LOG_MAX_BYTES=5242880  # 5MB
 
 # =============================================================================
 # GLOBALS
@@ -41,6 +42,14 @@ log_msg() {
     ts=$(date '+%Y-%m-%d %H:%M:%S')
     
     if [[ "$LOG_ENABLED" == "true" ]]; then
+        # Rotate if too large
+        if [[ -f "$LOG_FILE" ]]; then
+            local size
+            size=$(stat -c%s "$LOG_FILE" 2>/dev/null || echo 0)
+            if [[ "$size" -gt "$LOG_MAX_BYTES" ]]; then
+                mv "$LOG_FILE" "${LOG_FILE}.1" 2>/dev/null || true
+            fi
+        fi
         echo "[$ts] [$level] $msg" >> "$LOG_FILE" 2>/dev/null || true
     fi
     
