@@ -1,0 +1,20 @@
+[Unit]
+Description=Supermicro X10 Fan Control Service
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/supermicro_fan_control.sh --daemon
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# Security hardening
+NoNewPrivileges=no
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/log
+
+[Install]
+WantedBy=multi-user.target
